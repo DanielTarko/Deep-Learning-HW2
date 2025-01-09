@@ -9,7 +9,16 @@ math (delimited with $$).
 # Part 1 (Backprop) answers
 
 part1_q1 = r"""
-**Your answer:**
+1.1
+
+The input X tesor is (64,1024). The output tensor Y is (64,512).
+Therefore, the jacobian of Y with respect to X will be (64, 512, 64, 1024).
+
+1.2
+
+The Jacobian is sparse. Each output batch only depends on the inputs of that batch. So for every index (b1, i, b2, j) such that 0 $\leq$ i $\leq$ 512 and 0 $\leq$ j $\leq$ 1024 and such that b1 $\neq$ b2, the jacobian is zero.
+
+1.3
 
 """
 

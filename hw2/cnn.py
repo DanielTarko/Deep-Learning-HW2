@@ -80,8 +80,26 @@ class CNN(nn.Module):
         #  Note: If N is not divisible by P, then N mod P additional
         #  CONV->ACTs should exist at the end, without a POOL after them.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
-
+        curr_channels = in_channels
+    
+        # Create N conv layers with specified number of channels
+        for i, out_channels in enumerate(self.channels):
+            # Add conv layer
+            layers.append(
+                nn.Conv2d(curr_channels, out_channels, **self.conv_params)
+            )
+            
+            # Add activation
+            activation = ACTIVATIONS[self.activation_type](**self.activation_params)
+            layers.append(activation)
+            
+            # Add pooling layer after every pool_every convolutions
+            # Unless we're at the end and N is not divisible by P
+            if (i + 1) % self.pool_every == 0 and i < len(self.channels) - 1:
+                pooling = POOLINGS[self.pooling_type](**self.pooling_params)
+                layers.append(pooling)
+                
+            curr_channels = out_channels
         # ========================
         seq = nn.Sequential(*layers)
         return seq
@@ -95,7 +113,16 @@ class CNN(nn.Module):
         rng_state = torch.get_rng_state()
         try:
             # ====== YOUR CODE: ======
-            raise NotImplementedError()
+            # Create dummy input tensor
+            x = torch.ones(1, *self.in_size)
+            
+            # Pass through feature extractor
+            features = self.feature_extractor(x)
+            
+            # Calculate total number of features
+            n_features = features.reshape(1, -1).shape[1]
+            
+            return n_features
             # ========================
         finally:
             torch.set_rng_state(rng_state)
@@ -107,19 +134,31 @@ class CNN(nn.Module):
         #  - The first Linear layer should have an input dim of equal to the number of
         #    convolutional features extracted by the convolutional layers.
         #  - The last Linear layer should have an output dim of out_classes.
-        mlp: MLP = None
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
-        # ========================
+        n_features = self._n_features()
+        
+        # Create dimensions list starting with extracted features
+        dims = [*self.hidden_dims, self.out_classes]
+        
+        # Create corresponding non-linearities - activation for hidden layers, none for output
+        nonlins = [self.activation_type] * len(self.hidden_dims) + ['none']
+        
+        mlp = MLP(n_features, dims, nonlins)       
+         # ========================
         return mlp
 
     def forward(self, x: Tensor):
         # TODO: Implement the forward pass.
         #  Extract features from the input, run the classifier on them and
         #  return class scores.
-        out: Tensor = None
-        # ====== YOUR CODE: ======
-        raise NotImplementedError()
+            # Extract features using CNN part
+        features = self.feature_extractor(x)
+        
+        # Flatten the features
+        features_flat = features.reshape(features.shape[0], -1)
+        
+        # Pass through MLP part
+        out = self.mlp(features_flat)
         # ========================
         return out
 
