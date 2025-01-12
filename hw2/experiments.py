@@ -107,7 +107,62 @@ def cnn_experiment(
     #   for you automatically.
     fit_res = None
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    
+    # Create data loaders
+    dl_train = torch.utils.data.DataLoader(
+        ds_train, bs_train, shuffle=True, num_workers=2
+    )
+    dl_test = torch.utils.data.DataLoader(
+        ds_test, bs_test, shuffle=False, num_workers=2
+    )
+
+    # Construct the channels list based on filters_per_layer and layers_per_block
+    channels = []
+    for filter_size in filters_per_layer:
+        channels.extend([filter_size] * layers_per_block)
+    
+    # Create the model instance
+    model = model_cls(
+        in_size=(3, 32, 32),  # CIFAR10 image size
+        out_classes=10,       # CIFAR10 has 10 classes
+        channels=channels,
+        pool_every=pool_every,
+        hidden_dims=hidden_dims,
+        conv_params={'kernel_size': 3, 'padding': 1, 'stride': 1},
+        activation_type='relu',
+        activation_params={},
+        pooling_type='max',
+        pooling_params={'kernel_size': 2, 'stride': 2},
+        **kw
+    ).to(device)
+
+    # Loss and optimizer
+    loss_fn = torch.nn.CrossEntropyLoss()
+    optimizer = torch.optim.Adam(
+        model.parameters(),
+        lr=lr,
+        weight_decay=reg  # L2 regularization
+    )
+
+    # Create trainer
+    trainer = ClassifierTrainer(
+        model=model,
+        loss_fn=loss_fn,
+        optimizer=optimizer,
+        device=device
+    )
+
+    # Run training
+    fit_res = trainer.fit(
+        dl_train=dl_train,
+        dl_test=dl_test,
+        num_epochs=epochs,
+        checkpoints=checkpoints,
+        early_stopping=early_stopping,
+        max_batches=batches,
+        print_every=1
+    )
+
     # ========================
 
     save_experiment(run_name, out_dir, cfg, fit_res)
