@@ -19,20 +19,12 @@ Therefore, the jacobian of Y with respect to X will be (64, 512, 64, 1024).
 The Jacobian is sparse. Each output batch only depends on the inputs of that batch. So for every index (b1, i, b2, j) such that 0 $\leq$ i $\leq$ 512 and 0 $\leq$ j $\leq$ 1024 and such that b1 $\neq$ b2, the jacobian is zero.
 
 1.3
-
+lskdjfl
 """
 
 part1_q2 = r"""
-**Your answer:**
 
-
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
-
+No, backpropagation is not strictly required to train neural networks with gradient-based optimization. Numerical differentiation, evolutionary algorithms or random search are examples of alternative ways to optimize which are generally less effective.
 """
 
 

@@ -94,12 +94,21 @@ class CNN(nn.Module):
 
             #pooling
             if (i + 1) % self.pool_every == 0:
-                if self.pooling_type == "avg":
-                    layers.append(nn.AvgPool2d(**self.pooling_params))
-                elif self.pooling_type == "max":
-                    layers.append(nn.MaxPool2d(**self.pooling_params))
-                else:
-                    raise ValueError(f"Unsupported pooling type: {self.pooling_type}")
+                if in_h >= self.pooling_params['kernel_size'] and in_w >= self.pooling_params['kernel_size']:
+                    if self.pooling_type == "avg":
+                        layers.append(nn.AvgPool2d(**self.pooling_params))
+                    elif self.pooling_type == "max":
+                        layers.append(nn.MaxPool2d(**self.pooling_params))
+                    else:
+                        raise ValueError(f"Unsupported pooling type: {self.pooling_type}")
+            
+                # Update spatial dimensions after pooling
+                kernel_size = self.pooling_params['kernel_size']
+                stride = self.pooling_params.get('stride', kernel_size)
+                padding = self.pooling_params.get('padding', 0)
+
+                in_h = (in_h + 2 * padding - kernel_size) // stride + 1
+                in_w = (in_w + 2 * padding - kernel_size) // stride + 1
 
         return nn.Sequential(*layers)
 
