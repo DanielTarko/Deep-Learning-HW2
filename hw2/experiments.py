@@ -70,7 +70,7 @@ def cnn_experiment(
     hidden_dims=[1024],
     model_type="cnn",
     # You can add extra configuration for your experiments here
-    **kw,
+    **kw
 ):
     """
     Executes a single run of a Part3 experiment with a single configuration.
