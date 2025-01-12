@@ -6,7 +6,7 @@ NUM_GPUS=1
 OUTPUT_DIR="slurm"
 LOG_FILE="experiment_slots.log"
 MAX_CONCURRENT_JOBS=5
-USERNAME="hillahhassan"
+USERNAME="tarko"
 
 # Experiment configurations
 EXP1_NAME="exp1_1"
