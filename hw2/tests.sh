@@ -70,28 +70,28 @@ submit_job() {
 }
 
 ## Submit jobs for Experiment 1
-#for K in "${EXP1_K_VALUES[@]}"; do
-#    for L in "${EXP1_L_VALUES[@]}"; do
-#        RUN_NAME="${EXP1_NAME}"
-#        OUTPUT_FILE="${OUTPUT_DIR}/slurm-${RUN_NAME}.out"
-#        JOB_NAME="${RUN_NAME}"
-#        COMMAND="python -m hw2.experiments run-exp -n $RUN_NAME -K $K -L $L -P 4 -H 100"
-#
-#        submit_job "$EXP1_NAME" "$RUN_NAME" "$OUTPUT_FILE" "$JOB_NAME" "$COMMAND"
-#    done
-#done
-#
-## Submit jobs for Experiment 2
-#for L in "${EXP2_L_VALUES[@]}"; do
-#    for K in "${EXP2_K_VALUES[@]}"; do
-#        RUN_NAME="${EXP2_NAME}"
-#        OUTPUT_FILE="${OUTPUT_DIR}/slurm-${RUN_NAME}.out"
-#        JOB_NAME="${RUN_NAME}"
-#        COMMAND="python -m hw2.experiments run-exp -n $RUN_NAME -K $K -L $L -P 4 -H 100"
-#
-#        submit_job "$EXP2_NAME" "$RUN_NAME" "$OUTPUT_FILE" "$JOB_NAME" "$COMMAND"
-#    done
-#done
+for K in "${EXP1_K_VALUES[@]}"; do
+    for L in "${EXP1_L_VALUES[@]}"; do
+        RUN_NAME="${EXP1_NAME}"
+       OUTPUT_FILE="${OUTPUT_DIR}/slurm-${RUN_NAME}.out"
+       JOB_NAME="${RUN_NAME}"
+       COMMAND="python -m hw2.experiments run-exp -n $RUN_NAME -K $K -L $L -P 4 -H 100"
+
+       submit_job "$EXP1_NAME" "$RUN_NAME" "$OUTPUT_FILE" "$JOB_NAME" "$COMMAND"
+   done
+done
+
+# Submit jobs for Experiment 2
+for L in "${EXP2_L_VALUES[@]}"; do
+   for K in "${EXP2_K_VALUES[@]}"; do
+       RUN_NAME="${EXP2_NAME}"
+       OUTPUT_FILE="${OUTPUT_DIR}/slurm-${RUN_NAME}.out"
+       JOB_NAME="${RUN_NAME}"
+       COMMAND="python -m hw2.experiments run-exp -n $RUN_NAME -K $K -L $L -P 4 -H 100"
+
+       submit_job "$EXP2_NAME" "$RUN_NAME" "$OUTPUT_FILE" "$JOB_NAME" "$COMMAND"
+   done
+done
 
 ## Submit jobs for Experiment 3
 for L in "${EXP3_L_VALUES[@]}"; do
@@ -105,21 +105,21 @@ done
 
 
 ## Submit jobs for Experiment 4 - Configuration set 1
-#for L in "${EXP4_L1_VALUES[@]}"; do
-#    RUN_NAME="${EXP4_NAME}"
-#    OUTPUT_FILE="${OUTPUT_DIR}/slurm-${RUN_NAME}.out"
-#    JOB_NAME="${RUN_NAME}"
-#    COMMAND="python -m hw2.experiments run-exp -n $RUN_NAME -K 32 -L $L -P 8 -H 100 --model-type resnet"
-#
-#    submit_job "$EXP4_NAME" "$RUN_NAME" "$OUTPUT_FILE" "$JOB_NAME" "$COMMAND"
-#done
-#
-## Submit jobs for Experiment 4 - Configuration set 2
-#for L in "${EXP4_L2_VALUES[@]}"; do
-#    RUN_NAME="${EXP4_NAME}"
-#    OUTPUT_FILE="${OUTPUT_DIR}/slurm-${RUN_NAME}.out"
-#    JOB_NAME="${RUN_NAME}"
-#    COMMAND="python -m hw2.experiments run-exp -n $RUN_NAME -K 64 128 256 -L $L -P 8 -H 100 --model-type resnet"
-#
-#    submit_job "$EXP4_NAME" "$RUN_NAME" "$OUTPUT_FILE" "$JOB_NAME" "$COMMAND"
-#done
+for L in "${EXP4_L1_VALUES[@]}"; do
+   RUN_NAME="${EXP4_NAME}"
+   OUTPUT_FILE="${OUTPUT_DIR}/slurm-${RUN_NAME}.out"
+   JOB_NAME="${RUN_NAME}"
+   COMMAND="python -m hw2.experiments run-exp -n $RUN_NAME -K 32 -L $L -P 8 -H 100 --model-type resnet"
+
+   submit_job "$EXP4_NAME" "$RUN_NAME" "$OUTPUT_FILE" "$JOB_NAME" "$COMMAND"
+done
+
+# Submit jobs for Experiment 4 - Configuration set 2
+for L in "${EXP4_L2_VALUES[@]}"; do
+   RUN_NAME="${EXP4_NAME}"
+   OUTPUT_FILE="${OUTPUT_DIR}/slurm-${RUN_NAME}.out"
+   JOB_NAME="${RUN_NAME}"
+   COMMAND="python -m hw2.experiments run-exp -n $RUN_NAME -K 64 128 256 -L $L -P 8 -H 100 --model-type resnet"
+
+   submit_job "$EXP4_NAME" "$RUN_NAME" "$OUTPUT_FILE" "$JOB_NAME" "$COMMAND"
+done
