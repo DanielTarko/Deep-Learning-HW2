@@ -24,7 +24,7 @@ MODEL_TYPES = {
     "resnet": ResNet,
 }
 
-
+"""
 def mlp_experiment(
     depth: int,
     width: int,
@@ -48,8 +48,7 @@ def mlp_experiment(
     raise NotImplementedError()
     # ========================
     return model, thresh, valid_acc, test_acc
-
-
+"""
 def cnn_experiment(
     run_name,
     out_dir="./results",
