@@ -24,7 +24,7 @@ lskdjfl
 
 part1_q2 = r"""
 
-No, backpropagation is not strictly required to train neural networks with gradient-based optimization. Numerical differentiation, evolutionary algorithms or random search are examples of alternative ways to optimize which are generally less effective.
+No, backpropagation is not strictly required to train neural networks with gradient-based optimization. Finite differences, Direct gradient computation, forward-mode differentiation, evolutionary algorithms or random search are examples of alternative ways to optimize which are generally less effective.
 """
 
 
