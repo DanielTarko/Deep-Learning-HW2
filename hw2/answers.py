@@ -86,39 +86,38 @@ def part2_dropout_hp():
 part2_q1 = r"""
 **Your answer:**
 
+1. The model did fit the expactations as without dropout, the model quickly achieves high training accuracy and low loss by utilizing all neurons, leading to overfitting and poor generalization, evident in higher test loss and lower accuracy.
+ With dropout, some neurons are randomly disabled during training, increasing training loss and lowering accuracy, but improving test performance by reducing overfitting and enhancing generalization.
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
-
+2. The graphs show that a dropout rate of 0.4 achieves better loss and test accuracy than a higher rate.
+ Excessive dropout causes underfitting, with high loss and low accuracy during training and testing, as the model struggles to learn complex patterns due to relying on too few neurons.
+ While it slightly improves generalization compared to no dropout, performance remains poor.
 """
 
 part2_q2 = r"""
 **Your answer:**
 
+Yes, test loss can increase while test accuracy improves.
+This happens because accuracy measures correct predictions, while cross-entropy loss reflects prediction confidence.
+Improved accuracy with lower confidence or higher confidence in incorrect predictions can cause this discrepancy.
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
 
 """
 
 part2_q3 = r"""
 **Your answer:**
+1. Gradient descent is an optimization algorithm that updates model parameters to minimize the loss function,
+while Backpropagation is the process of computing gradients of the loss with respect to model parameters using the chain rule.
 
+2. GD computes gradients using the entire dataset, resulting in stable but slower updates, making it suitable for small datasets.
+In contrast, SGD updates parameters using a single data point or small batch per iteration, which is faster for large datasets but introduces noise in the updates.
+While GD ensures smoother convergence, it may get stuck in local minima, whereas SGD's noisy updates can help escape local minima but lead to fluctuating convergence.
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+3. SGD is widely used in deep learning because it efficiently handles large datasets by updating parameters using small batches, reducing memory and computation requirements compared to full-batch Gradient Descent.
+Its frequent updates allow faster iterations, and the noise introduced helps escape local minima and saddle points, improving generalization. Additionally, its flexibility allows integration with advanced variants like Momentum and Adam, making it adaptable to various optimization challenges in deep learning.
+
+4. 
+
 
 """
 
