@@ -555,13 +555,31 @@ part5_q4 = r"""
 part6_q1 = r"""
 **Your answer:**
 
+1.
+First image:
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+The model failed to recognize the dolphins, instead detecting a bird and a person, with relatively high confidence.
+
+Second imge:
+
+ The model identified two dogs on the right and a cat on the left, but the bounding box for the cat was mainly around a third dog.
+   2.
+   First image:
+    The failure is because the dolphins are not in a typical settings of birds.
+   The model likely detected a bird due to the sky and the dolphin's black color.
+ To fix this, train the model on different animals in unexpected settings.
+
+   Second image:
+   The occluded image with many objects likely caused this issue.
+    To fix we may try trainig the model on more dense pictures to try to show it how to distinguish between close objects.
+
+    3. To attack an Object Detection model like YOLO using PGD:
+
+- **Initialize Perturbation:** Add small random noise to the input image. 
+- **Compute Gradient:** Calculate the gradient of the loss with respect to the input image. 
+- **Update Perturbation:** Adjust the perturbation iteratively in the direction of the gradient. 
+- **Clip Perturbation:** Ensure the perturbation stays within a specified range. 
+- **Apply Perturbation:** Add the perturbation to the original image to create the adversarial example.
 
 """
 
@@ -583,25 +601,22 @@ An equation: $e^{i\pi} -1 = 0$
 part6_q3 = r"""
 **Your answer:**
 
+**Sheeps Image:**
+The model reconized the sheeps correctly and with high confidence.
+However, due to the occlusion in the picture some of the cows were recognized as sheeps.
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
 
+**Goat Image:**
+The model did recognize the animal, however since it looks like a pegasus which is recognized with horse the model mispredicted the goat as a horse.
+
+**Rick Image:**
+The model was able to find some people. However due to the cluttered image it missed most of them and was wrong on some, such as predicting the girl as a clock.
+It also didnt find Rick.
 """
 
 part6_bonus = r"""
 **Your answer:**
 
-
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+I cropped the images in order for them to focus on more relevant features. It worked with Rick.
 
 """
