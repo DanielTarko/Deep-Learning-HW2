@@ -1,0 +1,79 @@
+{
+    "config": {
+        "run_name": "exp1_2",
+        "out_dir": "/home/galkesten/CS236781/Homework2/results",
+        "seed": 42,
+        "device": null,
+        "bs_train": 32,
+        "bs_test": 32,
+        "batches": 1500,
+        "epochs": 30,
+        "early_stopping": 3,
+        "checkpoints": null,
+        "lr": 0.0001,
+        "reg": 0.0001,
+        "filters_per_layer": [
+            128
+        ],
+        "pool_every": 4,
+        "hidden_dims": [
+            128
+        ],
+        "model_type": "cnn",
+        "conv_params": {
+            "kernel_size": 3,
+            "stride": 1,
+            "padding": 1
+        },
+        "activation_type": "relu",
+        "activation_params": {},
+        "pooling_type": "max",
+        "pooling_params": {
+            "kernel_size": 2
+        },
+        "batchnorm": false,
+        "dropout": 0.0,
+        "bottleneck": false,
+        "kw": {},
+        "layers_per_block": 4
+    },
+    "results": {
+        "num_epochs": 7,
+        "train_loss": [
+            1.566495744355917,
+            1.197202570685943,
+            1.0014194279414415,
+            0.8512711813056469,
+            0.7206788610396783,
+            0.5891576722118258,
+            0.4545521250293652
+        ],
+        "train_acc": [
+            44.589395833333334,
+            58.55264583333334,
+            65.75941666666667,
+            71.26602083333334,
+            76.21291666666666,
+            80.87154166666667,
+            86.02464583333334
+        ],
+        "test_loss": [
+            1.3314126109810303,
+            1.1421392399415422,
+            1.0329851253249773,
+            0.9929648946192319,
+            1.0227781500584021,
+            1.1270160502366746,
+            1.3289309423076459
+        ],
+        "test_acc": [
+            53.297700000000006,
+            60.2566,
+            64.52890000000001,
+            66.8216,
+            66.7105,
+            65.91260000000001,
+            64.8521
+        ]
+    }
+}
