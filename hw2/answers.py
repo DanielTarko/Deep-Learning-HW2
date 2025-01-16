@@ -149,7 +149,15 @@ While GD ensures smoother convergence, it may get stuck in local minima, whereas
 3. SGD is widely used in deep learning because it efficiently handles large datasets by updating parameters using small batches, reducing memory and computation requirements compared to full-batch Gradient Descent.
 Its frequent updates allow faster iterations, and the noise introduced helps escape local minima and saddle points, improving generalization. Additionally, its flexibility allows integration with advanced variants like Momentum and Adam, making it adaptable to various optimization challenges in deep learning.
 
-4. 
+4.
+1) No, this approach doesn’t produce a gradient equivalent to GD.
+ In GD, the gradient is computed as the average over all data points.
+   In the suggested method, the loss is accumulated across batches,
+     and a single backward pass is done, which computes gradients for the summed loss, not the true average.
+       This can result in differences, especially with small batch sizes.
+
+2) The error occurs because accumulating losses across batches stores activations and intermediate variables in memory until the backward pass.
+ Even if each batch fits in memory, holding data for all batches simultaneously can exceed memory capacity.
 
 
 """
@@ -158,12 +166,48 @@ part2_q4 = r"""
 **Your answer:**
 
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+
+1.
+ **(a) Forward Mode AD**
+- **Approach:** 
+Forward mode AD computes derivatives alongside function evaluations. At each step $i$, we propagate both the value 
+$$
+v_i = f_i(v_{i-1})
+$$
+and the derivative
+$$
+v_i' = f_i'(v_{i-1}) \cdot v_{i-1}'
+$$
+To reduce memory usage:
+Only store the current value $v_i$ and derivative $v_i'$.
+Recompute $v_i$ sequentially if needed later.
+
+- **Memory Complexity:** $\mathcal{O}(1)$ per step.
+- **Computation Cost:** $\mathcal{O}(n)$, as no extra work is done beyond a single pass.
+
+**(b) Backward Mode AD**
+- **Approach:** 
+Backward mode AD computes the gradient by propagating adjoint values (partial derivatives) backward through the computational graph. Normally, intermediate values are stored during the forward pass to reuse in the backward pass. To reduce memory:
+
+Do not store intermediate values during the forward pass.
+Recompute them during the backward pass as needed, saving memory at the cost of additional computation.
+- **Memory Complexity:** $\mathcal{O}(1)$.
+- **Computation Cost:** $\mathcal{O}(n)$, with a small overhead for recomputation.
+
+
+
+ 2.
+These techniques can be applied to arbitrary graphs using checkpointing,
+ storing intermediate values only at key points and recomputing others,
+   reducing memory to $\mathcal{O}(\sqrt{n})$ while increasing computation.
+
+
+
+3.
+**Memory Efficiency:** These methods help reduce memory usage in deep networks
+ (e.g., VGGs, ResNets) by recomputing intermediate values during backpropagation.
+ **Practical Benefits:** Enables training larger models or using larger batch sizes with limited memory.
+
 
 """
 
